@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class Node {
     int id;
-    ArrayList<Node> adjacents;
+    boolean isVisited;
+    ArrayList<Node> adjacents = new ArrayList<>();
 
     static int counter = 1;
 

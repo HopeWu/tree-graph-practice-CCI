@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
 public class Graph {
-    ArrayList<Node> vertices;
+    ArrayList<Node> vertices = new ArrayList<>();
 
-    public void addVertex()
+    public Node addVertex()
     {
         Node n = new Node();
         this.addVertex(n);
+        return n;
     }
 
     public void addVertex(Node vertex)
