@@ -11,6 +11,9 @@ public class Node {
     {
         this.id = counter++;
     }
+    Node(int n){
+        this.id = n;
+    }
 
     public void addAdjacent(Node adjacent)
     {
