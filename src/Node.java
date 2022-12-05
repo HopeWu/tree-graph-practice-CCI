@@ -33,15 +33,22 @@ public class Node {
         }
 
         Node node = null;
+        int max = 40;
+        int count = 0;
         while(!queue.isEmpty()){
+
+            count += 1;
             node = queue.remove();
-            if (node == null){
-                continue;
-            }
+//            System.out.println(node.id);
+            if (node == null) continue;
             arr.add(node.id);
 
-            queue.add(tree.adjacents.get(0));
-            queue.add(tree.adjacents.get(1));
+            if(node != null && node.adjacents != null){
+                if (node.adjacents.size() > 0)
+                queue.add(node.adjacents.get(0));
+                if (node.adjacents.size() > 1)
+                queue.add(node.adjacents.get(1));
+            }
         }
         return arr;
     }

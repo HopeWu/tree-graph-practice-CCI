@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -8,17 +9,25 @@ public class MinimalTre {
 
         MinimalTre minimalTre = new MinimalTre();
 
-        minimalTre.buildTree(arr);
+        Node tree = minimalTre.buildTree(arr);
+//        System.out.println(tree.id);
+//        System.out.println(tree.adjacents.get(0).id);
+//        System.out.println(tree.adjacents.get(1).id);
+//        System.out.println(tree.adjacents.get(0).adjacents.get(0).id);
+//        System.out.println(tree.adjacents.get(0).adjacents.get(1).id);
+
+        ArrayList<Integer> nodes = Node.bfs(tree);
     }
 
     Node buildTree(int [] arr){
         int end = arr.length - 1;
-        Pair p = new Pair(0, end);
         Queue<Pair> queue = new LinkedList<>();
-        queue.add(p);
-
         Node root = null;
         boolean flag = true;
+
+        Pair pair1 = new Pair(0, end);
+        queue.add(pair1);
+
         while(!queue.isEmpty()){
             Pair pair = queue.remove();
             // if the pair is null continue
@@ -38,19 +47,15 @@ public class MinimalTre {
                 pair.root.addAdjacent(node);
             }
 
-            if (pair.start == pair.end){
-                // if the start and end is the same, the current node is a node instead of a tree
-                node.id = pair.start;
-            }else if (pair.start < pair.end)
+            // first save the mid element in the current node(root) of this tree
+            int mid = (pair.start + pair.end)/2;
+            node.id = mid;
+//            System.out.println(mid);
+
+            if (pair.start < pair.end)
             {
-                /*
-                if the start and end are different, the current node is a tree
-                 */
-
-                // first save the mid element in the current node(root) of this tree
-                int mid = (pair.start + pair.end)/2;
-
                 // resolve the descendants
+                //if (pair.start != mid)
                 queue.add(new Pair(node, pair.start, mid));
                 queue.add(new Pair(node, mid+1, pair.end));
             }
@@ -58,3 +63,4 @@ public class MinimalTre {
         return root;
     }
 }
+//int arr[] =  {0,1,2,3,4,5,6,7};
