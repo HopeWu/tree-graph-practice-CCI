@@ -5,13 +5,10 @@ public class MinimalTre {
 
     public static void main(String []args){
         int arr[] =  {1,2,4,5,7,9,10,11};
-        Node tree = new Node();
 
-//        System.out.println(len);
         MinimalTre minimalTre = new MinimalTre();
 
         minimalTre.buildTree(arr);
-
     }
 
     Node buildTree(int [] arr){
