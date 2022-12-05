@@ -43,7 +43,7 @@ public class Node {
             if (node == null) continue;
             arr.add(node.id);
 
-            if(node != null && node.adjacents != null){
+            if(node.adjacents != null){
                 if (node.adjacents.size() > 0)
                 queue.add(node.adjacents.get(0));
                 if (node.adjacents.size() > 1)
