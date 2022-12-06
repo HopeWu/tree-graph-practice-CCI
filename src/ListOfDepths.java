@@ -1,12 +1,59 @@
-public class ListOfDepths {
-     public static void main(String [] args){
-         // initialize a tree
+import java.util.Hashtable;
 
-         ListOfDepths listOfDepths = new ListOfDepths();
-         BinNode root = listOfDepths.initializeTree();
+public class ListOfDepths {
+    public static void main(String[] args) {
+
+        ListOfDepths listOfDepths = new ListOfDepths();
+        // initialize a tree
+        BinNode root = listOfDepths.initializeTree();
+
+        listOfDepths.dfs(0, root);
+
+        listOfDepths.printNodeLists();
     }
 
-    public BinNode initializeTree(){
+    static Hashtable<Integer, LinkedNode> nodeLists = new Hashtable<>();
+
+    void printNodeLists() {
+        int key = 0;
+        while (nodeLists.containsKey(key)) {
+            LinkedNode linkedNode = nodeLists.get(key);
+            while (linkedNode != null) {
+                System.out.print(linkedNode.data);
+                System.out.print(' ');
+                linkedNode = linkedNode.next;
+            }
+            key += 1;
+            System.out.print('\n');
+        }
+    }
+
+    public void dfs(int level, BinNode root) {
+        if (nodeLists.containsKey(level)) {
+            // append this new node to the linked list
+            LinkedNode node = new LinkedNode();
+            node.data = root.data;
+            LinkedNode p = nodeLists.get(level);
+            while (p.next != null){
+                p = p.next;
+            }
+            p.next = node;
+        } else {
+            // create this new linked list
+            LinkedNode node = new LinkedNode();
+            node.data = root.data;
+            nodeLists.put(level, node);
+        }
+
+        if (root.left != null) {
+            dfs(level + 1, root.left);
+        }
+        if (root.right != null) {
+            dfs(level + 1, root.right);
+        }
+    }
+
+    public BinNode initializeTree() {
         BinNode n1 = new BinNode(1);
         BinNode n2 = new BinNode(2);
         BinNode n3 = new BinNode(3);
