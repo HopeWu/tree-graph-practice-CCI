@@ -1,6 +1,9 @@
 import java.util.Hashtable;
 
 public class ListOfDepths {
+
+    static Hashtable<Integer, LinkedNode> nodeLists = new Hashtable<>();
+
     public static void main(String[] args) {
 
         ListOfDepths listOfDepths = new ListOfDepths();
@@ -11,8 +14,6 @@ public class ListOfDepths {
 
         listOfDepths.printNodeLists();
     }
-
-    static Hashtable<Integer, LinkedNode> nodeLists = new Hashtable<>();
 
     void printNodeLists() {
         int key = 0;
