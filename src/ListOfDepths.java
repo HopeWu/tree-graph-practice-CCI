@@ -69,14 +69,19 @@ public class ListOfDepths {
 
         n1.setLeft(n2);
         n1.setRight(n3);
+
         n2.setLeft(n4);
         n2.setRight(n5);
-        n4.setLeft(n6);
-        n4.setRight(n7);
-        n5.setLeft(n8);
-        n5.setRight(n9);
-        n7.setLeft(n10);
-        n9.setLeft(n11);
+
+        n3.setLeft(n6);
+        n3.setRight(n7);
+
+        n4.setLeft(n8);
+        n4.setRight(n9);
+
+        n6.setLeft(n10);
+        n6.setRight(n11);
+
 
         return n1;
     }
