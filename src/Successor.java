@@ -24,8 +24,7 @@ public class Successor {
         if (parent != null)
         {
             if (parent.data < node.data) {
-                assert parent.parent != null;
-                if (parent.parent.data > parent.data) sc = parent.parent;
+                if (parent.parent != null & parent.parent.data > parent.data) sc = parent.parent;
             }else if(parent.data > node.data){
                 sc = parent;
             }
