@@ -20,7 +20,7 @@ public class ValidateBST {
 
         // Another way
 
-        if(vbst.checkBSTRange(node, (int) Double.NEGATIVE_INFINITY, (int) Double.POSITIVE_INFINITY))
+        if (vbst.checkBSTRange(node, (int) Double.NEGATIVE_INFINITY, (int) Double.POSITIVE_INFINITY))
             System.out.println("True BST!");
         else
             System.out.println("False BST!");
@@ -29,14 +29,13 @@ public class ValidateBST {
     /*
     Another method
      */
-    private boolean checkBSTRange(BinNode tree, int min, int max){
-        if(tree.data > max)
-        {
+    private boolean checkBSTRange(BinNode tree, int min, int max) {
+        if (tree == null) return true;
+        if (tree.data > max) {
             System.out.println("Violated BFS rule. " + tree.data + " is greater than " + max);
             return false;
         }
-        if(tree.data < min)
-        {
+        if (tree.data < min) {
             System.out.println("Violated BFS rule. " + tree.data + " is smaller than " + min);
             return false;
         }
@@ -60,10 +59,10 @@ public class ValidateBST {
     /*
     One method
      */
-    private int maxOf(BinNode tree) throws ViolateBfsException, NullTreeException{
-        if(tree == null) throw new NullTreeException("The input tree is null.");
+    private int maxOf(BinNode tree) throws ViolateBfsException, NullTreeException {
+        if (tree == null) throw new NullTreeException("The input tree is null.");
 
-        if(tree.left != null) {
+        if (tree.left != null) {
             int maxFromLeft = maxOf(tree.left);
             if (maxFromLeft > tree.data) {
                 throw new ViolateBfsException("Violated BFS rule. Left tree has greater element than the root of that. " +
@@ -71,7 +70,7 @@ public class ValidateBST {
             }
         }
 
-        if(tree.right != null) {
+        if (tree.right != null) {
             int maxFromRight = maxOf(tree.right);
             if (tree.data > maxFromRight) {
                 throw new ViolateBfsException("Violated BFS rule. Right tree has greater element than the root of that. " +
@@ -79,20 +78,18 @@ public class ValidateBST {
             }
 
             return maxFromRight;
-        }else{
+        } else {
             return tree.data;
         }
     }
 
-    private class NullTreeException extends Exception
-    {
-        public NullTreeException(String errorMessage){
+    private class NullTreeException extends Exception {
+        public NullTreeException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    private class ViolateBfsException extends Exception
-    {
+    private class ViolateBfsException extends Exception {
         public ViolateBfsException(String errorMessage) {
             super(errorMessage);
         }
@@ -112,36 +109,39 @@ public class ValidateBST {
         BinNode n11 = new BinNode(11);
 
 
-        n1.setLeft(n2);
-        n1.setRight(n3);
+//        n1.setLeft(n2);
+//        n1.setRight(n3);
+//
+//        n2.setLeft(n4);
+//        n2.setRight(n5);
+//
+//        n3.setLeft(n6);
+//        n3.setRight(n7);
+//
+//        n4.setLeft(n8);
+//        n4.setRight(n9);
+//
+//        n6.setLeft(n10);
+//        n6.setRight(n11);
+//
+//
+//        return n1;
 
-        n2.setLeft(n4);
-        n2.setRight(n5);
+        n6.setLeft(n3);
 
-        n3.setLeft(n6);
-        n3.setRight(n7);
+        n2.setLeft(n1);
+        n3.setRight(n5);
 
-        n4.setLeft(n8);
-        n4.setRight(n9);
-
-        n6.setLeft(n10);
-        n6.setRight(n11);
-
-
-        return n1;
-//        n6.setLeft(n3);
+        n5.setLeft(n4);
 //        n3.setLeft(n4);
-//        n2.setLeft(n1);
-//        n3.setRight(n5);
-//        //n5.setLeft(n4);
-//
-//        n6.setRight(n8);
-//        n8.setLeft(n7);
-//        n8.setRight(n9);
-//        n9.setRight(n10);
-//        n10.setRight(n11);
-//
-//
-//        return n6;
+
+        n6.setRight(n8);
+        n8.setLeft(n7);
+        n8.setRight(n9);
+        n9.setRight(n10);
+        n10.setRight(n11);
+
+
+        return n6;
     }
 }
