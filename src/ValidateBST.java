@@ -8,21 +8,22 @@ public class ValidateBST {
 
         // One way
 
-        try {
-            int max = vbst.maxOf(node);
-            System.out.println("This is a BST.");
-        }catch (ViolateBfsException e){
-            System.out.println(e);
-        }catch (NullTreeException e){
-            System.out.println(e);
-        }
+//        try {
+//            int max = vbst.maxOf(node);
+//            System.out.println("This is a BST.");
+//        }catch (ViolateBfsException e){
+//            System.out.println(e);
+//        }catch (NullTreeException e){
+//            System.out.println(e);
+//        }
 
 
         // Another way
-//        if(vbst.checkBSTRange(node, (int) Double.NEGATIVE_INFINITY, (int) Double.POSITIVE_INFINITY))
-//            System.out.println("True BST!");
-//        else
-//            System.out.println("False BST!");
+
+        if(vbst.checkBSTRange(node, (int) Double.NEGATIVE_INFINITY, (int) Double.POSITIVE_INFINITY))
+            System.out.println("True BST!");
+        else
+            System.out.println("False BST!");
     }
 
     /*
@@ -111,19 +112,36 @@ public class ValidateBST {
         BinNode n11 = new BinNode(11);
 
 
-        n6.setLeft(n3);
-        n3.setLeft(n4);
-        n2.setLeft(n1);
-        n3.setRight(n5);
-        //n5.setLeft(n4);
+        n1.setLeft(n2);
+        n1.setRight(n3);
 
-        n6.setRight(n8);
-        n8.setLeft(n7);
-        n8.setRight(n9);
-        n9.setRight(n10);
-        n10.setRight(n11);
+        n2.setLeft(n4);
+        n2.setRight(n5);
+
+        n3.setLeft(n6);
+        n3.setRight(n7);
+
+        n4.setLeft(n8);
+        n4.setRight(n9);
+
+        n6.setLeft(n10);
+        n6.setRight(n11);
 
 
-        return n6;
+        return n1;
+//        n6.setLeft(n3);
+//        n3.setLeft(n4);
+//        n2.setLeft(n1);
+//        n3.setRight(n5);
+//        //n5.setLeft(n4);
+//
+//        n6.setRight(n8);
+//        n8.setLeft(n7);
+//        n8.setRight(n9);
+//        n9.setRight(n10);
+//        n10.setRight(n11);
+//
+//
+//        return n6;
     }
 }
