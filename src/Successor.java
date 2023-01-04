@@ -39,7 +39,7 @@ public class Successor {
             while (left.left != null) left = left.left;
         }
         if (sc == null) return left;
-        if (left == null) return null;
+        if (left == null) return sc;
         if (sc.data > left.data) sc = left;
 
         return sc;
@@ -62,6 +62,7 @@ public class Successor {
         n6.setLeft(n3); n3.setParent(n6);
 
         n2.setLeft(n1); n1.setParent(n2);
+        n3.setLeft(n2); n2.setParent(n3);
         n3.setRight(n5); n5.setParent(n3);
 
         n5.setLeft(n4); n4.setParent(n5);
@@ -74,7 +75,7 @@ public class Successor {
         n10.setRight(n11); n11.setParent(n10);
 
 
-        return n6;
+        return n2;
     }
 
     public static class BinNode {
