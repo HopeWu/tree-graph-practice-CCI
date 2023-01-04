@@ -24,7 +24,9 @@ public class Successor {
         if (parent != null)
         {
             if (parent.data < node.data) {
-                if (parent.parent != null & parent.parent.data > parent.data) sc = parent.parent;
+                if (parent.parent != null)
+                    if (parent.parent.data > parent.data)
+                        sc = parent.parent;
             }else if(parent.data > node.data){
                 sc = parent;
             }
@@ -75,7 +77,7 @@ public class Successor {
         n10.setRight(n11); n11.setParent(n10);
 
 
-        return n2;
+        return n11;
     }
 
     public static class BinNode {
