@@ -1,20 +1,37 @@
 import java.util.*;
 
 public class BuildOrder {
+    private Approach approach = null;
+
+    BuildOrder(){
+        this.approach = new OneApproach();
+    }
+    public void setApproach(Approach approach){
+        this.approach = approach;
+    }
+    public ArrayList<Node> run(ArrayList<Node> projects){
+        return this.approach.run(projects);
+    }
 
     static public void main(String[] args){
         BuildOrder buildOrder = new BuildOrder();
         ArrayList<Node> projects = buildOrder.initilize();
+        /*
+        OneApproach
+        ImprovedAnotherApproach
+        AnotherApproach
+         */
+        buildOrder.setApproach(new ImprovedAnotherApproach());
+        ArrayList<Node> order = buildOrder.run(projects);
 
-        OneApproach oneApproach = new OneApproach();
-        ArrayList<Node> order = oneApproach.run(projects);
-//        AnotherApproach anotherApproach = new AnotherApproach();
-//        AnotherApproach anotherApproach = new ImprovedAnotherApproach();
-//        ArrayList<Node> order = anotherApproach.run(projects);
         order.forEach((node -> print(node.data)));
     }
 
-    static class OneApproach{
+    interface Approach{
+        ArrayList<Node> run(ArrayList<Node> projects);
+    }
+
+    static class OneApproach implements Approach{
         private ArrayList<Node> result = new ArrayList<>();
         private Hashtable<Node, Integer> hashtable= new Hashtable<Node, Integer>();
 
@@ -42,8 +59,11 @@ public class BuildOrder {
             }
         }
     }
-    static class ImprovedAnotherApproach extends AnotherApproach{
-        private ArrayList<Node> run(ArrayList<Node> projects){
+    static class ImprovedAnotherApproach implements Approach{
+        protected Stack<Node> stack = new Stack<>();
+        private Hashtable<Node, Integer> hashtable= new Hashtable<Node, Integer>();
+
+        public ArrayList<Node> run(ArrayList<Node> projects){
             ArrayList<Node> starters = getStarters(projects);
             for (Node node: starters){
                 dfs(node);
@@ -54,22 +74,25 @@ public class BuildOrder {
         }
 
         private void dfs(Node node){
+            if (hashtable.get(node) != null) return;
             ArrayList<Node> adjacents = node.adjacents;
             if (adjacents.isEmpty()){
                 stack.push(node);
+                hashtable.put(node, 1);
             }else{
                 for (Node node1: adjacents){
                     dfs(node1);
                 }
                 stack.push(node);
+                hashtable.put(node, 1);
             }
         }
     }
 
-    static class AnotherApproach{
+    static class AnotherApproach implements Approach{
         protected Stack<Node> stack = new Stack<>();
 
-        private ArrayList<Node> run(ArrayList<Node> projects)
+        public ArrayList<Node> run(ArrayList<Node> projects)
         {
             Hashtable<Node, Integer> hashtable = new Hashtable<>();
             // initialize the hashtable
