@@ -6,25 +6,40 @@ public class BuildOrder {
         BuildOrder buildOrder = new BuildOrder();
         ArrayList<Node> projects = buildOrder.initilize();
 
-//        OneApproach oneApproach = new OneApproach();
-//        ArrayList<Node> order = oneApproach.run(projects);
+        OneApproach oneApproach = new OneApproach();
+        ArrayList<Node> order = oneApproach.run(projects);
 //        AnotherApproach anotherApproach = new AnotherApproach();
-        AnotherApproach anotherApproach = new ImprovedAnotherApproach();
-        ArrayList<Node> order = anotherApproach.run(projects);
+//        AnotherApproach anotherApproach = new ImprovedAnotherApproach();
+//        ArrayList<Node> order = anotherApproach.run(projects);
         order.forEach((node -> print(node.data)));
     }
 
     static class OneApproach{
+        private ArrayList<Node> result = new ArrayList<>();
+        private Hashtable<Node, Integer> hashtable= new Hashtable<Node, Integer>();
+
         public ArrayList<Node> run(ArrayList<Node> projects){
             ArrayList<Node> starters = getStarters(projects);
-
-            return null;
+            for (Node node: starters){
+                bfs(node);
+            }
+            return result;
         }
 
-        private ArrayList<Node> oneApproach(ArrayList<Node> projects){
-            Hashtable<String, Integer> hashtable = new Hashtable<>();
-            ArrayList<Node> starters = new ArrayList<>();
-            return null;
+        private void bfs(Node node){
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(node);
+            hashtable.put(node, 1);
+            while(!queue.isEmpty()){
+                Node n = queue.remove();
+                result.add(n);
+                for (Node node1: n.adjacents){
+                    if (hashtable.get(node1) == null){
+                        queue.add(node1);
+                        hashtable.put(node1, 1);
+                    }
+                }
+            }
         }
     }
     static class ImprovedAnotherApproach extends AnotherApproach{
