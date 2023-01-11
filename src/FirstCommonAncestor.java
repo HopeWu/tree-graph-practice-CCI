@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class FirstCommonAncestor {
@@ -35,9 +37,9 @@ public class FirstCommonAncestor {
     }
 
     private BinNode root = null;
-    Stack<BinNode> oneRoute = new Stack<>();
-    Stack<BinNode> anotherRoute = new Stack<>();
-    Stack<BinNode> stack = new Stack<>();
+
+    Stack<BinNode> stack1 = new Stack<>();
+    Stack<BinNode> stack2 = new Stack<>();
 
     public FirstCommonAncestor(BinNode root){
         this.root = root;
@@ -47,13 +49,24 @@ public class FirstCommonAncestor {
 
         setOneRouteTo(node1);
         setAnotherRouteTo(node2);
+
+        BuildOrder.print(stack1);
+        BuildOrder.print(stack2);
+
         BinNode ancestor = findFirstCommonAncestor();
+
         BuildOrder.print(ancestor.data);
         return null;
     };
 
     BinNode findFirstCommonAncestor(){
         BinNode ancestor = null;
+        Stack<BinNode> oneRoute = new Stack<>();
+        Stack<BinNode> anotherRoute = new Stack<>();
+
+        while (!stack1.isEmpty()) oneRoute.push(stack1.pop());
+        while (!stack2.isEmpty()) anotherRoute.push(stack2.pop());
+
         while(!oneRoute.isEmpty()){
             ancestor = oneRoute.pop();
             if (ancestor != anotherRoute.pop()) break;
@@ -62,22 +75,21 @@ public class FirstCommonAncestor {
     }
 
     void setOneRouteTo(BinNode node){
-        routeTo(root, node, oneRoute);
+        routeTo(root, node, stack1);
     }
 
     void setAnotherRouteTo(BinNode node){
-        routeTo(root, node, anotherRoute);
+        routeTo(root, node, stack2);
     }
 
-    boolean routeTo(BinNode root, BinNode node, Stack<BinNode> path){
+    boolean routeTo(BinNode root, BinNode node, Stack<BinNode> stack){
         if (root == null) return false;
         stack.push(root);
         if (root == node){
-            while(!stack.isEmpty()) path.push(stack.pop());
             return true;
         }else{
-            if (routeTo(root.left, node, path)) return true;
-            if (routeTo(root.right, node, path)) return true;
+            if (routeTo(root.left, node, stack)) return true;
+            if (routeTo(root.right, node, stack)) return true;
             stack.pop();
             return false;
         }
