@@ -2,27 +2,30 @@ import java.util.*;
 
 public class BuildOrder {
     private Approach approach = null;
+    ArrayList<Node> projects = null;
 
     BuildOrder(){
+        this.projects = this.initilize();
         this.approach = new OneApproach();
     }
     public void setApproach(Approach approach){
         this.approach = approach;
     }
-    public ArrayList<Node> run(ArrayList<Node> projects){
-        return this.approach.run(projects);
+
+    public ArrayList<Node> run(){
+        return this.approach.run(this.projects);
     }
+
 
     static public void main(String[] args){
         BuildOrder buildOrder = new BuildOrder();
-        ArrayList<Node> projects = buildOrder.initilize();
         /*
         OneApproach
         ImprovedAnotherApproach
         AnotherApproach
          */
         buildOrder.setApproach(new ImprovedAnotherApproach());
-        ArrayList<Node> order = buildOrder.run(projects);
+        ArrayList<Node> order = buildOrder.run();
 
         order.forEach((node -> print(node.data)));
     }
