@@ -1,15 +1,14 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public abstract class BSTSequences {
+public class BSTSequences {
 
     public static void main(String[] args) {
-        MethodOne methodOne = new MethodOne();
-        BuildOrder.print(methodOne.run());
-
-        //BuildOrder.print(bstSequences.numberOfNodes(root));
-//        MethodOne methodOne = bstSequences.new MethodOne(root);
+//        MethodOne methodOne = new MethodOne();
 //        BuildOrder.print(methodOne.run());
+
+        MethodTwo methodTwo = new MethodTwo();
+        BuildOrder.print(methodTwo.run().size());
     }
 
     ValidateBST.BinNode tree = null;
@@ -18,15 +17,16 @@ public abstract class BSTSequences {
         this.tree = initializeTree();
     }
 
-    abstract Result run();
-
     static class MethodTwo extends BSTSequences{
+
         MethodTwo(){
             super();
         }
 
-        public Result run(){
-            return null;
+        public ArrayList<LinkedList<ValidateBST.BinNode>> run(){
+            ArrayList<LinkedList<ValidateBST.BinNode>> results = new ArrayList<>();
+            allSequences(tree, results);
+            return results;
         }
 
         void allSequences(ValidateBST.BinNode root, ArrayList<LinkedList<ValidateBST.BinNode>> results){
@@ -101,6 +101,8 @@ public abstract class BSTSequences {
             prefix.addLast(leftFirst);
             results.addAll(merge(left, right, prefix));
             right.addFirst(rightFirst);
+
+            prefix.removeLast();
 
             return results;
         }
