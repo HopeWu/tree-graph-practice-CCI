@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class BSTSequences {
 
@@ -15,6 +16,7 @@ public class BSTSequences {
 //        BuildOrder.print(methodThree.run());
         methodThree.run();
         BuildOrder.print(methodThree.countTriesWidth());
+        methodThree.printResults();
     }
 
     ValidateBST.BinNode tree = null;
@@ -57,6 +59,23 @@ public class BSTSequences {
              */
             for( Tries child: root.children){
                 build(child, root);
+            }
+        }
+
+        private Stack<Integer> stack = new Stack<>();
+        void printResults(){
+            dfsTries(this.tries, stack);
+        }
+
+        void dfsTries(Tries node, Stack<Integer> printArray){
+            if (node.children.size() == 0){
+                BuildOrder.print(printArray);
+            }else{
+                printArray.push(node.data.data);
+                for(Tries child: node.children){
+                    dfsTries(child, printArray);
+                }
+                printArray.pop();
             }
         }
 
