@@ -14,6 +14,7 @@ public class BSTSequences {
         MethodThree methodThree = new MethodThree();
 //        BuildOrder.print(methodThree.run());
         methodThree.run();
+        BuildOrder.print(methodThree.countTriesWidth());
     }
 
     ValidateBST.BinNode tree = null;
@@ -24,6 +25,7 @@ public class BSTSequences {
 
     static class MethodThree extends BSTSequences{
         private Hashtable<ValidateBST.BinNode, ArrayList<ValidateBST.BinNode>> hashtable;
+        public Tries tries = null;
         MethodThree(){
             super();
             hashtable = new Hashtable<>();
@@ -31,7 +33,8 @@ public class BSTSequences {
 
         public void run(){
             initChildrenHashTable();
-            build(new Tries(tree), null);
+            tries = new Tries(tree);
+            build(tries, null);
         }
 
         void build(Tries root, Tries parent){
@@ -56,6 +59,25 @@ public class BSTSequences {
                 build(child, root);
             }
         }
+
+        public int countTriesWidth(){
+            if (tries == null) return -1;
+            count = 0;
+            dfsTries(this.tries);
+            return count;
+        }
+
+        private int count = 0;
+        void dfsTries(Tries node){
+            if (node.children.size() == 0){
+                count += 1;
+            }else{
+                for(Tries child: node.children){
+                    dfsTries(child);
+                }
+            }
+        }
+
 
         /*
         return an arrayList of its children
