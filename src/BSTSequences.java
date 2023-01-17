@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.LinkedList;
 
 public class BSTSequences {
@@ -7,14 +8,109 @@ public class BSTSequences {
 //        MethodOne methodOne = new MethodOne();
 //        BuildOrder.print(methodOne.run());
 
-        MethodTwo methodTwo = new MethodTwo();
-        BuildOrder.print(methodTwo.run().size());
+//        MethodTwo methodTwo = new MethodTwo();
+//        BuildOrder.print(methodTwo.run().size());
+
+        MethodThree methodThree = new MethodThree();
+//        BuildOrder.print(methodThree.run());
+        methodThree.run();
     }
 
     ValidateBST.BinNode tree = null;
 
     BSTSequences(){
         this.tree = initializeTree();
+    }
+
+    static class MethodThree extends BSTSequences{
+        private Hashtable<ValidateBST.BinNode, ArrayList<ValidateBST.BinNode>> hashtable;
+        MethodThree(){
+            super();
+            hashtable = new Hashtable<>();
+        }
+
+        public void run(){
+            initChildrenHashTable();
+            build(new Tries(tree), null);
+        }
+
+        void build(Tries root, Tries parent){
+            /*
+            add to its children
+             */
+            // first, add the node's children
+            for(ValidateBST.BinNode child: getTreeChildren(root.data)){
+                root.addChild(new Tries(child));
+            }
+            // second, add its siblings
+            if(parent != null){
+                for(Tries sibling: parent.children){
+                    if(sibling == root) continue;
+                    root.addChild(new Tries(sibling));
+                }
+            }
+            /*
+            recurse through every child of this node of type Tries
+             */
+            for( Tries child: root.children){
+                build(child, root);
+            }
+        }
+
+        /*
+        return an arrayList of its children
+         */
+        ArrayList<ValidateBST.BinNode> getTreeChildren(ValidateBST.BinNode tree){
+            return hashtable.get(tree);
+        }
+
+        void initChildrenHashTable(){
+            dfs(tree);
+        }
+
+        void dfs(ValidateBST.BinNode tree){
+            ArrayList<ValidateBST.BinNode> children = new ArrayList<>();
+            if(tree.left != null){
+                dfs(tree.left);
+                children.add(tree.left);
+            }
+            if(tree.right != null){
+                dfs(tree.right);
+                children.add(tree.right);
+            }
+            hashtable.put(tree, children);
+        }
+
+        class Tries{
+            public Tries parent;
+            private ArrayList<Tries> children;
+            public ValidateBST.BinNode data;
+
+            public Tries(){
+                parent = null;
+                children = new ArrayList<>();
+                data = null;
+            }
+
+            public Tries(Tries node){
+                parent = null;
+                children = new ArrayList<>();
+                data = node.data;
+            }
+
+            public Tries(ValidateBST.BinNode tree){
+                parent = null;
+                children = new ArrayList<>();
+                data = tree;
+            }
+
+            public void addChild(Tries child){
+                this.children.add(child);
+            }
+            public void removeChild(Tries child){
+                this.children.remove(child);
+            }
+        }
     }
 
     static class MethodTwo extends BSTSequences{
