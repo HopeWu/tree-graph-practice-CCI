@@ -127,20 +127,30 @@ public class ValidateBST {
 //
 //        return n1;
 
-        n6.setLeft(n3); n3.setParent(n6);
+        n6.setLeft(n3);
+        n3.setParent(n6);
 
-        n2.setLeft(n1); n1.setParent(n2);
-        n3.setLeft(n2); n2.setParent(n3);
-        n3.setRight(n5); n5.setParent(n3);
+        n2.setLeft(n1);
+        n1.setParent(n2);
+        n3.setLeft(n2);
+        n2.setParent(n3);
+        n3.setRight(n5);
+        n5.setParent(n3);
 
-        n5.setLeft(n4); n4.setParent(n5);
+        n5.setLeft(n4);
+        n4.setParent(n5);
 //        n3.setLeft(n4); n4.setParent(n3);
 
-        n6.setRight(n8); n8.setParent(n6);
-        n8.setLeft(n7); n7.setParent(n8);
-        n8.setRight(n9); n9.setParent(n8);
-        n9.setRight(n10); n10.setParent(n9);
-        n10.setRight(n11); n11.setParent(n10);
+        n6.setRight(n8);
+        n8.setParent(n6);
+        n8.setLeft(n7);
+        n7.setParent(n8);
+        n8.setRight(n9);
+        n9.setParent(n8);
+        n9.setRight(n10);
+        n10.setParent(n9);
+        n10.setRight(n11);
+        n11.setParent(n10);
 
 
         return n6;
@@ -157,21 +167,25 @@ public class ValidateBST {
             right = null;
             parent = null;
         }
+
         public BinNode(int data) {
             left = null;
             right = null;
             parent = null;
             this.data = data;
         }
-        public void setLeft(BinNode left){
+
+        public void setLeft(BinNode left) {
             if (left == null) throw new AssertionError("Left node is null");
             this.left = left;
         }
-        public void setRight(BinNode right){
+
+        public void setRight(BinNode right) {
             if (right == null) throw new AssertionError("Right node is null");
             this.right = right;
         }
-        public void setParent(BinNode parent){
+
+        public void setParent(BinNode parent) {
             if (parent == null) throw new AssertionError("Parent node is null");
             this.parent = parent;
         }
