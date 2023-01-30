@@ -227,16 +227,16 @@ public class RandomNode {
         private final ValidateBST.BinNode root;
         private ValidateBST.BinNode target;
 
-        public ValidateBST.BinNode getTarget() {
-            return target;
-        }
-
         GetNodeAt(ValidateBST.BinNode root, int position){
             this.root = root;
             this.position = position;
         }
         GetNodeAt(ValidateBST.BinNode root){
             this.root = root;
+        }
+
+        public ValidateBST.BinNode getTarget() {
+            return target;
         }
 
         public ValidateBST.BinNode run() {
