@@ -218,11 +218,6 @@ public class RandomNode {
         return getNodeAt.run();
     }
 
-    public ValidateBST.BinNode getNodeAt(int position){
-        GetNodeAt getNodeAt = new GetNodeAt(this.root, position);
-        return getNodeAt.run();
-    }
-
     class GetNodeAt{
         public void setPosition(int position) {
             this.position = position;
