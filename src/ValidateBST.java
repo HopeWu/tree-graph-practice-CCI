@@ -26,6 +26,13 @@ public class ValidateBST {
             System.out.println("False BST!");
     }
 
+    public boolean validateBST(BinNode root){
+        if (this.checkBSTRange(root, (int) Double.NEGATIVE_INFINITY, (int) Double.POSITIVE_INFINITY))
+            return true;
+        else
+            return false;
+    }
+
     /*
     Another method
      */

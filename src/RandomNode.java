@@ -4,11 +4,36 @@ import java.util.Random;
 implement a binary search tree here
  */
 public class RandomNode {
+    static public void main(String[] args){
+        RandomNode randomNode = new RandomNode();
+        int[] array = {6, 8, 3, 9, 7, 5, 2, 10, 4, 1};
+        for( int i: array){
+            randomNode.insert(i);
+        }
+        ValidateBST validateBST = new ValidateBST();
+        BuildOrder.print(validateBST.validateBST(randomNode.getRoot()));
+
+//        randomNode.printTree();
+//        System.out.println(randomNode.getNodeAt(6).data);
+        System.out.println(randomNode.getRandomNode().data);
+    }
     private ValidateBST.BinNode root = null;
     private int count = 0;
 
     public ValidateBST.BinNode getRoot() {
         return root;
+    }
+
+    public void printTree(){
+        doPrintTree(this.root);
+    }
+
+    private void doPrintTree(ValidateBST.BinNode root){
+        if (root==null) return;
+
+        doPrintTree(root.left);
+        System.out.print(root.data);
+        doPrintTree(root.right);
     }
 
     public void insert(int data) {
@@ -189,6 +214,11 @@ public class RandomNode {
     public ValidateBST.BinNode getRandomNode() {
         Random random = new Random();
         int position = random.nextInt(this.count) + 1;
+        GetNodeAt getNodeAt = new GetNodeAt(this.root, position);
+        return getNodeAt.run();
+    }
+
+    public ValidateBST.BinNode getNodeAt(int position){
         GetNodeAt getNodeAt = new GetNodeAt(this.root, position);
         return getNodeAt.run();
     }
