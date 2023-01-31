@@ -9,10 +9,10 @@ public class PathsWithSum {
         ValidateBST.BinNode root = initializeTree();
 
 //        pathsWithSum.certainSumFromRoot(root, 0, 11);
-        pathsWithSum.toCertainSum(root, pathsWithSum.new Balance(0, null, null), 6);
-//        System.out.println(pathsWithSum.getCount());
+//        pathsWithSum.toCertainSum(root, pathsWithSum.new Balance(0, null, null), 6);
 //        ArrayList<ValidateBST.BinNode[]> arrayLists = new ArrayList<>();
-        System.out.println(pathsWithSum.paths);
+        pathsWithSum.toCertainSum2(root, 9);
+        System.out.println(pathsWithSum.getCount());
     }
 
     public int getCount() {
@@ -100,6 +100,20 @@ public class PathsWithSum {
             return string;
         }
     }
+    public void toCertainSum2(ValidateBST.BinNode root, int sum){
+        if (root == null) return;
+        toCertainSum2(root.left, sum);
+        certainSumFromRoot(root, 0, sum);
+        toCertainSum2(root.right, sum);
+    }
+
+    public void certainSumFromRoot(ValidateBST.BinNode root, int balance, int sum){
+        if (root == null) return;
+
+        if (balance + root.data == sum) count++;
+        certainSumFromRoot(root.left, balance + root.data, sum);
+        certainSumFromRoot(root.right, balance + root.data, sum);
+    }
 
     Paths paths = new Paths();
     public void toCertainSum(ValidateBST.BinNode root, Balance balance,  int sum){
@@ -125,14 +139,6 @@ public class PathsWithSum {
 
         // check the right path starting from current node(exclusive)
         toCertainSum(root.right, new Balance(0, root, root), sum);
-    }
-
-    public void certainSumFromRoot(ValidateBST.BinNode root, int balance, int sum){
-        if (root == null) return;
-
-        if (balance + root.data == sum) count++;
-        certainSumFromRoot(root.left, balance + root.data, sum);
-        certainSumFromRoot(root.right, balance + root.data, sum);
     }
 
 
