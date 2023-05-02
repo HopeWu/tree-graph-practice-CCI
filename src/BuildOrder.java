@@ -92,48 +92,6 @@ public class BuildOrder {
         }
     }
 
-    static class AnotherApproach implements Approach{
-        protected Stack<Node> stack = new Stack<>();
-
-        public ArrayList<Node> run(ArrayList<Node> projects)
-        {
-            Hashtable<Node, Integer> hashtable = new Hashtable<>();
-            // initialize the hashtable
-            projects.forEach((node -> initHash(node, hashtable)));
-            while (!hashtable.isEmpty()){
-                Set<Node> keys = hashtable.keySet();
-                for (Node key: keys){
-                    dfs(key, hashtable);
-                    break;
-                }
-            }
-
-            ArrayList<Node> result = new ArrayList<>();
-            while(!stack.isEmpty()) result.add(stack.pop());
-            return result;
-        }
-
-        void initHash(Node node, Hashtable<Node, Integer> hashtable){
-            hashtable.put(node, 1);
-        }
-
-        private void dfs(Node node, Hashtable<Node, Integer> hashtable){
-            ArrayList<Node> adjacents = node.adjacents;
-            if (adjacents.isEmpty()){
-                hashtable.remove(node);
-                stack.push(node);
-            }else{
-                for (Node n: adjacents){
-                    if (hashtable.get(n) != null)
-                        dfs(n, hashtable);
-                }
-                // delete the links starting from node
-                node.adjacents.removeAll(node.adjacents);
-                hashtable.remove(node);
-                stack.push(node);
-            }
-        }
-    }
     static private ArrayList<Node> getStarters(ArrayList<Node> projects){
         Hashtable<Node, Integer> hashtable = new Hashtable<>();
         for (Node node: projects){
